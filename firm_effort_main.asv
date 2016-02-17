@@ -8,8 +8,6 @@ parameters
 transmat = rand(params.nshocks);
 transmat = transmat./repmat(sum(transmat,2),1,params.nshocks);
 theta = [0.95; 1; 1.05];
-a = rand(params.nshocks,1);
-b = rand(params.nshocks,1);
-wagefun = @(x) wage(x,a,b);
-c = valfun(wagefun,theta);
+wagefun = @(
+c = valfun('qmeet',theta);
 

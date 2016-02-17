@@ -30,29 +30,35 @@ function [ x, w ] = truncated_normal_rule ( arg1, arg2, arg3, arg4, arg5, arg6, 
 %
 %    John Burkardt
 %
-  timestamp ( );
-  fprintf ( 1, '\n' );
-  fprintf ( 1, 'TRUNCATED_NORMAL_RULE\n' );
-  fprintf ( 1, '  MATLAB version\n' );
-  fprintf ( 1, '\n' );
-  fprintf ( 1, '  For the (truncated) Gaussian probability density function\n' );
-  fprintf ( 1, '    pdf(x) = exp(-0.5*((x-MU)/SIGMA)^2) / SIGMA / sqrt ( 2 * pi )\n' );
-  fprintf ( 1, '  compute an N-point quadrature rule for approximating\n' );
-  fprintf ( 1, '    Integral ( A <= x <= B ) f(x) pdf(x) dx\n' );
-  fprintf ( 1, '\n' );
-  fprintf ( 1, '  The value of OPTION determines the truncation interval [A,B]:\n' );
-  fprintf ( 1, '  0: (-oo,+oo)\n' );
-  fprintf ( 1, '  1: [A,+oo)\n' );
-  fprintf ( 1, '  2: (-oo,B]\n' );
-  fprintf ( 1, '  3: [A,B]\n' );
-  fprintf ( 1, '\n' );
-  fprintf ( 1, '  The user specifies OPTION, N, MU, SIGMA, A, B and FILENAME.\n' );
-  fprintf ( 1, '\n' );
-  fprintf ( 1, '  FILENAME is used to generate 3 files:\n' );
-  fprintf ( 1, '\n' );
-  fprintf ( 1, '    filename_w.txt - the weight file\n' );
-  fprintf ( 1, '    filename_x.txt - the abscissa file.\n' );
-  fprintf ( 1, '    filename_r.txt - the region file, listing A and B.\n' );
+%  Modified:
+%
+%    17 February 2016
+%
+%  Author: Alexey Filatov
+
+%   timestamp ( );
+%   fprintf ( 1, '\n' );
+%   fprintf ( 1, 'TRUNCATED_NORMAL_RULE\n' );
+%   fprintf ( 1, '  MATLAB version\n' );
+%   fprintf ( 1, '\n' );
+%   fprintf ( 1, '  For the (truncated) Gaussian probability density function\n' );
+%   fprintf ( 1, '    pdf(x) = exp(-0.5*((x-MU)/SIGMA)^2) / SIGMA / sqrt ( 2 * pi )\n' );
+%   fprintf ( 1, '  compute an N-point quadrature rule for approximating\n' );
+%   fprintf ( 1, '    Integral ( A <= x <= B ) f(x) pdf(x) dx\n' );
+%   fprintf ( 1, '\n' );
+%   fprintf ( 1, '  The value of OPTION determines the truncation interval [A,B]:\n' );
+%   fprintf ( 1, '  0: (-oo,+oo)\n' );
+%   fprintf ( 1, '  1: [A,+oo)\n' );
+%   fprintf ( 1, '  2: (-oo,B]\n' );
+%   fprintf ( 1, '  3: [A,B]\n' );
+%   fprintf ( 1, '\n' );
+%   fprintf ( 1, '  The user specifies OPTION, N, MU, SIGMA, A, B and FILENAME.\n' );
+%   fprintf ( 1, '\n' );
+%   fprintf ( 1, '  FILENAME is used to generate 3 files:\n' );
+%   fprintf ( 1, '\n' );
+%   fprintf ( 1, '    filename_w.txt - the weight file\n' );
+%   fprintf ( 1, '    filename_x.txt - the abscissa file.\n' );
+%   fprintf ( 1, '    filename_r.txt - the region file, listing A and B.\n' );
 %
 %  Try to deal with arguments.
 %
@@ -214,11 +220,11 @@ function [ x, w ] = truncated_normal_rule ( arg1, arg2, arg3, arg4, arg5, arg6, 
 %
 %  Terminate.
 %
-  fprintf ( 1, '\n' );
-  fprintf ( 1, 'TRUNCATED_NORMAL_RULE:\n' );
-  fprintf ( 1, '  Normal end of execution.\n' );
-  fprintf ( 1, '\n' );
-  timestamp ( );
+%   fprintf ( 1, '\n' );
+%   fprintf ( 1, 'TRUNCATED_NORMAL_RULE:\n' );
+%   fprintf ( 1, '  Normal end of execution.\n' );
+%   fprintf ( 1, '\n' );
+%   timestamp ( );
 
   return
 end
