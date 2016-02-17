@@ -10,11 +10,11 @@ function [vac, job, unemp, work] = valfun(wagefun, theta)
 % "truncated_normal_rule.m": Copyright 2014 John Burkardt, distributed under the GNU LGPL license.
 
 %1)Pass global parameter structure.
-global params transmat
+global params transmat zprod
 
 %1. Initial guess on coefficients.
 v0 = 0.5*ones(params.nshocks,1);
-u0 = v0;
+u0 = 0.5*v0;
 j0 = [ones(params.nshocks,1) zeros(params.nshocks,1)];
 w0 = j0;
 
@@ -23,7 +23,7 @@ quad_firm = zeros(params.nshocks,1);
 quad_worker = zeros(params.nshocks,1);
 
 % 2. Calculate quadrature points and weights.
-[pts, wgt] = truncated_normal_rule(3,10,params.mu_pi,params.sigma_pi,params.a_pi, params.b_pi,'');
+[pts, wgt] = truncated_normal_rule(3,params.nquad,params.mu_pi,params.sigma_pi,params.a_pi, params.b_pi,'');
 
 %3.Value function iteration cycle.
 delta = 10; %convergence criterion
@@ -32,13 +32,12 @@ counter = 0;
 
 while (delta>params.epsilon)
     counter = counter+1;
-    %a. Calculate quadratures.
-    for i = 1:params.nshocks
-        func_firm = @(x) max(v0(i),j0(i,1)*x+j0(i,2));
-        func_worker = @(x) max(u0(i), w0(i,1)*x+w0(i,2));
-        quad_firm(i) = func_firm(pts)'*wgt;
-        quad_worker(i) = func_worker(pts)'*wgt;
-    end    
+    %a. Calculate quadratures.  
+    jhandle = @(x)max(repmat(v0,1,params.nquad),j0(:,1)*x'+repmat(j0(:,2),1,params.nquad));
+    whandle = @(x)max(repmat(u0,1,params.nquad),w0(:,1)*x'+repmat(w0(:,2),1,params.nquad)); 
+    %a. Calculate quadratures.    
+    quad_firm = jhandle(pts)*wgt;
+    quad_worker = whandle(pts)*wgt; 
     %b. Calculate next iteration of value functions    
     %Vacancy VF
     vac = -params.kv + params.beta*transmat*((1-qmeet(theta)).*v0 + qmeet(theta).*quad_firm);
@@ -63,14 +62,7 @@ while (delta>params.epsilon)
         pi_h_firm(pi_h_firm<0) = 0; %if pihat negative, just take it as 0
         % Part 2. Givet threshold values, compute next period J and W at
         % pihat(that can be 0) and 1.
-        
-        
-        
-        
-    
-end
-
-
+        jnext_1 = zprod.*params.yg - wagefun(1) + params.beta*(1-params.lambda);
 %2. 
 
 
