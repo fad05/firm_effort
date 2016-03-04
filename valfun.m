@@ -14,7 +14,7 @@ global params transmat zprod
 
 %1. Initial guess on coefficients.
 v0 = 0.5*ones(params.nshocks,1);
-u0 = 0.5*v0;
+u0 = 0.1*v0;
 j0 = [ones(params.nshocks,1) zeros(params.nshocks,1)];
 w0 = j0;
 
@@ -23,7 +23,7 @@ quad_firm = zeros(params.nshocks,1);
 quad_worker = zeros(params.nshocks,1);
 
 % 2. Calculate quadrature points and weights.
-[pts, wgt] = truncated_normal_rule(3,params.nquad,params.mu_pi,params.sigma_pi,params.a_pi, params.b_pi,'');
+[pts,wgt] = tauchen(params.a_pi,params.b_pi,params.sigma_pi,params.nquad);
 
 %3.Value function iteration cycle.
 delta = 10; %convergence criterion
